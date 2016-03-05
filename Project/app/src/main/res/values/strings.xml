@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Project</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_menu_exit">Exit</string>
+    <string name="map_menu_back_option">back</string>
+    <string name="main_menu_player">Player</string>
+</resources>
