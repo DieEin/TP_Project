@@ -33,7 +33,16 @@ tools:context="com.example.tpproject.project.Map">
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.tpproject.project.Map"
-        android:background="@android:drawable/alert_dark_frame">
+        android:background="@drawable/sample_map">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mission_zero"
+            android:src="@drawable/sample_mission_zero"
+            android:alpha=".75"
+            android:onClick="HandleMission"/>
 
     </LinearLayout>
 

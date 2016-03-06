@@ -1,6 +1,9 @@
 package com.example.tpproject.project;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,6 +19,8 @@ import android.view.WindowManager;
  * Created by Tomi on 5.3.2016 г..
  */
 public class Map extends AppCompatActivity {
+    private ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,5 +55,43 @@ public class Map extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void HandleMission(View view) {
+        int id = view.getId();
+
+        if (id == R.id.mission_zero) {
+
+            //DialogFragment myFragment = new MissionZeroFragment();
+            //myFragment.show(getFragmentManager(), "theDialog");
+            progress = new ProgressDialog(this);
+            progress.setMessage("Shit is happening");
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setProgress(0);
+            progress.show();
+
+            final int totalProgressTime = 100;
+            final Thread t = new Thread() {
+                @Override
+                public void run() {
+                    int jumpTime = 0;
+
+                    while (jumpTime < totalProgressTime) {
+                        try {
+                            sleep(200);
+                            jumpTime += 5;
+                            progress.setProgress(jumpTime);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (jumpTime >= totalProgressTime) {
+                            progress.dismiss();
+                        }
+                    }
+                }
+            };
+            t.start();
+        }
     }
 }
