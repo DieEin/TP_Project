@@ -43,11 +43,30 @@ tools:context="com.example.tpproject.project.Map">
             android:src="@drawable/sample_mission_zero"
             android:alpha=".75"
             android:onClick="HandleZone"
+            android:paddingTop="50dp"
             android:layout_gravity="center_horizontal" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/second_zone"
+            android:src="@drawable/sample_mission_zero"
+            android:paddingTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:alpha=".75"
+            android:onClick="HandleZone"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/third_zone"
+            android:src="@drawable/sample_mission_zero"
+            android:paddingTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:alpha=".75"
+            android:onClick="HandleZone"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fourth_zone"
             android:src="@drawable/sample_mission_zero"
             android:paddingTop="50dp"
             android:layout_gravity="center_horizontal"

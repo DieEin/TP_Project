@@ -25,10 +25,16 @@
         <activity android:name=".PlayerScreen"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".FirstZone"
+        <activity android:name=".zones.FirstZone"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".SecondZone"
+        <activity android:name=".zones.SecondZone"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".zones.ThirdZone"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".zones.FourthZone"
             android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>

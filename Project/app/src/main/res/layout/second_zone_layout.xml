@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mission_zero"
+        android:id="@+id/second_zone_mission_zero"
         android:src="@drawable/sample_mission_zero"
         android:paddingTop="15dp"
         android:layout_gravity="center_horizontal"
