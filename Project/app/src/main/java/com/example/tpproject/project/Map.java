@@ -57,6 +57,20 @@ public class Map extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void HandleZone(View view) {
+        int id = view.getId();
+
+        if (id == R.id.first_zone) {
+            Intent goToFirstZone = new Intent(this, FirstZone.class);
+
+            startActivity(goToFirstZone);
+        } else if (id == R.id.second_zone) {
+            Intent goToSecondZone = new Intent(this, SecondZone.class);
+
+            startActivity(goToSecondZone);
+        }
+    }
+
     public void HandleMission(View view) {
         int id = view.getId();
 

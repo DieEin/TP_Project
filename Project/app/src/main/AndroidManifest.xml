@@ -25,6 +25,12 @@
         <activity android:name=".PlayerScreen"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".FirstZone"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".SecondZone"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
