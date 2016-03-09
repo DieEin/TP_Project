@@ -3,28 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"/>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="100dp">
-
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/sample_mission_zero"/>
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:id="@+id/textViewXp"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="teeest"
-            android:textSize="50sp"
-            android:layout_marginTop="50dp"/>
-    </RelativeLayout>
-
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:id="@+id/textViewMoney"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:id="@+id/textViewLevel"/>
 </LinearLayout>

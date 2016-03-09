@@ -115,6 +115,8 @@ public class Map extends AppCompatActivity {
                         progress.dismiss();
                     }
                 }
+                MainActivity.money = MainActivity.money + 100;
+                MainActivity.xp = MainActivity.xp + 20;
             }
         };
         thread.start();
