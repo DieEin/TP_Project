@@ -29,6 +29,10 @@ public class Map extends AppCompatActivity {
 
         setContentView(R.layout.map_layout);
 
+        Intent getExtra = getIntent();
+        int money = getExtra.getIntExtra("money", 100);
+        int xp = getExtra.getIntExtra("xp", 100);
+
         Toolbar mapToolBar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolBar);
     }
@@ -148,7 +152,9 @@ public class Map extends AppCompatActivity {
         } else if (id == R.id.second_zone_mission_zero) {
             ProgressDialogForMission("...", 100, sleepTime, timeJump);
         } else if (id == R.id.third_zone_mission_zero) {
-
+            ProgressDialogForMission(".........", 100, sleepTime, timeJump);
+        } else if (id == R.id.fourth_zone_mission_zero) {
+            ProgressDialogForMission(".........", 100, sleepTime, timeJump);;
         }
     }
 }

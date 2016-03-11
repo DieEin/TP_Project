@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String[] mainMenuList = {"Map"};
+        String[] mainMenuList = {"Map", "Shop"};
 
         ListAdapter mainMenuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mainMenuList);
 
@@ -39,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, mainMenuOptionClicked, Toast.LENGTH_SHORT).show();
 
-                Intent goToMapScreen = new Intent(view.getContext(), Map.class);
-                startActivity(goToMapScreen);
+                if (String.valueOf(parent.getItemAtPosition(position)) == "Map") {
+                    Intent goToMapScreen = new Intent(view.getContext(), Map.class);
+                    startActivity(goToMapScreen);
+                } else if (String.valueOf(parent.getItemAtPosition(position)) == "Shop") {
+                    Intent goToShopScreen = new Intent(view.getContext(), Shop.class);
+
+                    startActivity(goToShopScreen);
+                }
             }
         });
 
@@ -73,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.main_menu_player) {
             Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
+            goToPlayerScreen.putExtra("xp", xp);
+            goToPlayerScreen.putExtra("money", money);
 
             startActivity(goToPlayerScreen);
         } else if (id == R.id.exit_app) {

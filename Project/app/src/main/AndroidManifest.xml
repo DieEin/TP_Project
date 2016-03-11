@@ -37,6 +37,9 @@
         <activity android:name=".zones.FourthZone"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".Shop"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
