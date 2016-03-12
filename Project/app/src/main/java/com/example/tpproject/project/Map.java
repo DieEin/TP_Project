@@ -1,14 +1,22 @@
 package com.example.tpproject.project;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.tpproject.project.zones.FirstZone;
 import com.example.tpproject.project.zones.FourthZone;
@@ -16,6 +24,7 @@ import com.example.tpproject.project.zones.SecondZone;
 import com.example.tpproject.project.zones.ThirdZone;
 
 import java.util.Random;
+import java.util.logging.Handler;
 
 /**
  * Created by Tomi on 5.3.2016 г..
@@ -23,15 +32,15 @@ import java.util.Random;
 public class Map extends AppCompatActivity {
     private ProgressDialog progress;
 
+    private String[] mission_text = {"Fight a Red Dragon", "Fight a Blue Dragon", "Fight a Green Dragon"};
+    int[] mission_icons = {R.drawable.house, R.drawable.sample_mission_zero, R.drawable.house};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.map_layout);
-
-        Intent getExtra = getIntent();
-        int money = getExtra.getIntExtra("money", 100);
-        int xp = getExtra.getIntExtra("xp", 100);
 
         Toolbar mapToolBar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolBar);
@@ -63,14 +72,6 @@ public class Map extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public int randomizeInteger(int minValue, int maxValue) {
-        Random random = new Random();
-        int randomNumber;
-        randomNumber = random.nextInt((maxValue - minValue) + 1) + minValue;
-
-        return randomNumber;
-    }
-
     public void HandleZone(View view) {
         int id = view.getId();
 
@@ -93,6 +94,7 @@ public class Map extends AppCompatActivity {
         }
     }
 
+    /*
     public void ProgressDialogForMission(String message, final int totalProgressTime, final long sleepTime, final int jump) {
         progress = new ProgressDialog(this);
         progress.setMessage(message);
@@ -119,42 +121,63 @@ public class Map extends AppCompatActivity {
                         progress.dismiss();
                     }
                 }
-                MainActivity.money = MainActivity.money + 100;
-                MainActivity.xp = MainActivity.xp + 20;
+                //PlayerScreen.money += randomizeInteger(10, 100);
+                //PlayerScreen.xp += randomizeInteger(5, 30);
+                increaseByLevel();
+                chooseLevel();
             }
         };
         thread.start();
+    }
+    */
+
+    public int randomizeInteger(int minValue, int maxValue) {
+        Random random = new Random();
+        int randomNumber;
+        randomNumber = random.nextInt((maxValue - minValue) + 1) + minValue;
+
+        return randomNumber;
+    }
+
+    public void missionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
+
+        int messageID = randomizeInteger(0, mission_text.length - 1);
+
+        builder.setTitle(R.string.mission_title)
+            .setMessage(mission_text[messageID])
+            .setIcon(mission_icons[messageID])
+            .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ProgressTask task = new ProgressTask(Map.this, "Shit is happening");
+                    task.execute();
+                }
+            })
+            .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // just cancels
+                }
+            }).create().show();
     }
 
     public void HandleMission(View view) {
         int id = view.getId();
 
-        int samplePlayerLevel = 1;
-        int level = samplePlayerLevel;
-        int sleepTime = 200;
-
-        int timeJump;
-        if (level <= 5) {
-            timeJump = randomizeInteger(level, level*10);
-        } else if (level <= 10) {
-            timeJump = randomizeInteger(1, level - 5);
-        } else if (level <= 15) {
-            timeJump = randomizeInteger(1, level - 10);
-            sleepTime += level*200;
-        } else {
-            timeJump = randomizeInteger(1, level - 15);
-            sleepTime += level*50;
-        }
-
         if (id == R.id.first_zone_mission_zero) {
-            ProgressDialogForMission("Shit is happening", 100, sleepTime, timeJump);
-
+            // ProgressDialogForMission("Shit is happening", 100, sleepTime, timeJump);
+            missionDialog();
         } else if (id == R.id.second_zone_mission_zero) {
-            ProgressDialogForMission("...", 100, sleepTime, timeJump);
+            // ProgressDialogForMission("...", 100, sleepTime, timeJump);
+            missionDialog();
         } else if (id == R.id.third_zone_mission_zero) {
-            ProgressDialogForMission(".........", 100, sleepTime, timeJump);
+            // ProgressDialogForMission(".........", 100, sleepTime, timeJump);
+            missionDialog();
         } else if (id == R.id.fourth_zone_mission_zero) {
-            ProgressDialogForMission(".........", 100, sleepTime, timeJump);;
+            // ProgressDialogForMission(".........", 100, sleepTime, timeJump);
+            missionDialog();
         }
     }
+
 }

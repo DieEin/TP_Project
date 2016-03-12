@@ -1,6 +1,7 @@
 package com.example.tpproject.project;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,8 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public static int money = 0;
-    public static int xp = 100;
+    // SQLiteDatabase database = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.main_menu_player) {
             Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
-            goToPlayerScreen.putExtra("xp", xp);
-            goToPlayerScreen.putExtra("money", money);
+            //goToPlayerScreen.putExtra("xp", xp);
+            //goToPlayerScreen.putExtra("money", money);
 
             startActivity(goToPlayerScreen);
         } else if (id == R.id.exit_app) {

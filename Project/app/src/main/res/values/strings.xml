@@ -4,4 +4,7 @@
     <string name="main_menu_exit">Exit</string>
     <string name="map_menu_back_option">back</string>
     <string name="main_menu_player">Player</string>
+    <string name="mission_title">Mission</string>
+    <string name="accept_mission">Accept Mission</string>
+    <string name="decline_mission">Decline Mission</string>
 </resources>

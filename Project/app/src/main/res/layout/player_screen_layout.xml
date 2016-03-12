@@ -9,7 +9,7 @@
             android:layout_weight="0.3"
             android:id="@+id/textViewXp"/>
 
-        <TextView
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="0.3"
