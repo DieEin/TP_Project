@@ -1,7 +1,6 @@
 package com.example.tpproject.project;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.tpproject.project.shopping.Shop;
 
 public class MainActivity extends AppCompatActivity {
     // SQLiteDatabase database = null;

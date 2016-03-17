@@ -7,4 +7,6 @@
     <string name="mission_title">Mission</string>
     <string name="accept_mission">Accept Mission</string>
     <string name="decline_mission">Decline Mission</string>
+    <string name="items_to_buy">Items to buy</string>
+    <string name="items_to_sell">Items to sell</string>
 </resources>

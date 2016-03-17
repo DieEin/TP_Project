@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpproject.project.zones.FirstZone;
@@ -177,6 +180,59 @@ public class Map extends AppCompatActivity {
         } else if (id == R.id.fourth_zone_mission_zero) {
             // ProgressDialogForMission(".........", 100, sleepTime, timeJump);
             missionDialog();
+        }
+    }
+
+    public void jobDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
+
+        final int overallTime = randomizeInteger(1000, 30000);
+        final int moneyMade = randomizeInteger(5, 150);
+
+        builder.setTitle("Job")
+                .setMessage("You can make " + moneyMade + " money for " + overallTime/1000 + " seconds!")
+                .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final AlertDialog alertDialog = new AlertDialog.Builder(Map.this).create();
+
+                        alertDialog.setTitle("Job");
+                        alertDialog.setMessage("");
+                        alertDialog.show();
+
+                        new CountDownTimer(overallTime, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                alertDialog.setMessage("00:" + (millisUntilFinished/1000));
+                            }
+
+                            public void onFinish() {
+                                alertDialog.cancel();
+
+                                PlayerScreen.money += moneyMade;
+                                Toast.makeText(Map.this, "You made " + moneyMade + " money!", Toast.LENGTH_SHORT).show();
+                            }
+                        }.start();
+                    }
+                })
+                .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // just cancels
+                    }
+                }).create().show();
+
+
+
+    }
+
+    public void handleJob(View view) {
+        int id = view.getId();
+
+        if (id == R.id.first_zone_job) {
+
+
+            jobDialog();
         }
     }
 

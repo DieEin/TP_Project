@@ -1,4 +1,4 @@
-package com.example.tpproject.project;
+package com.example.tpproject.project.shopping;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.tpproject.project.PlayerScreen;
+import com.example.tpproject.project.R;
 
 /**
  * Created by Tomi on 9.3.2016 г..
@@ -33,6 +36,16 @@ public class Shop extends AppCompatActivity {
                 String mainMenuOptionClicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
 
                 Toast.makeText(Shop.this, mainMenuOptionClicked, Toast.LENGTH_SHORT).show();
+
+                if (String.valueOf(parent.getItemAtPosition(position)) == "Buy") {
+                    Intent goToBuyScreen = new Intent(Shop.this, Buy.class);
+
+                    startActivity(goToBuyScreen);
+                } else if (String.valueOf(parent.getItemAtPosition(position)) == "Sell") {
+                    Intent goToSellScreen = new Intent(Shop.this, Sell.class);
+
+                    startActivity(goToSellScreen);
+                }
             }
         });
     }

@@ -23,4 +23,13 @@
         android:layout_gravity="center_horizontal"
         android:onClick="goToHouse"/>
 
+    <ImageView
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/first_zone_job"
+        android:src="@drawable/job"
+        android:paddingTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="handleJob"/>
+
 </LinearLayout>

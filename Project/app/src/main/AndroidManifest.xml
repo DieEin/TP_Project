@@ -37,7 +37,16 @@
         <activity android:name=".zones.FourthZone"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".Shop"
+        <activity android:name=".shopping.Shop"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".House"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".shopping.Buy"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".shopping.Sell"
             android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>

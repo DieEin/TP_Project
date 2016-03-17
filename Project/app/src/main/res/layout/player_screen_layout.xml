@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="0.3"
             android:id="@+id/textViewXp"/>
 
-    <TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="0.3"
@@ -19,4 +26,27 @@
             android:layout_height="50dp"
             android:layout_weight="0.3"
             android:id="@+id/textViewLevel"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sample_player"
+            android:id="@+id/imageView" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemsList"
+            android:layout_toStartOf="@+id/imageView"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView">
+        </ListView>
+
+    </RelativeLayout>
 </LinearLayout>
