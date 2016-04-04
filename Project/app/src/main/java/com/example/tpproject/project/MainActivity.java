@@ -14,11 +14,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import com.example.tpproject.project.shopping.Shop;
 
+
 public class MainActivity extends AppCompatActivity {
     // SQLiteDatabase database = null;
+
+    public static final String SAVE = "ProjectGameSaveFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences load_game = getSharedPreferences(SAVE, MODE_PRIVATE);
+        PlayerScreen.money = load_game.getInt("PlayerMoney",0);
+        PlayerScreen.xp = load_game.getInt("PlayerXP",0);
 
         String[] mainMenuList = {"Map", "Shop"};
 
@@ -77,18 +85,27 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.main_menu_player) {
-            Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
-            //goToPlayerScreen.putExtra("xp", xp);
-            //goToPlayerScreen.putExtra("money", money);
 
-            startActivity(goToPlayerScreen);
-        } else if (id == R.id.exit_app) {
-            finish();
+        switch (id){
+            case R.id.action_settings:
+                return true;
 
-            return true;
+            case R.id.main_menu_player:
+                Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
+                startActivity(goToPlayerScreen);
+                break;
+
+            case R.id.exit_app:
+                finish();
+
+                return true;
+
+            case R.id.save:
+                SharedPreferences save_game = getSharedPreferences(SAVE, MODE_PRIVATE);
+                SharedPreferences.Editor editor = save_game.edit();
+                editor.putInt("PlayerMoney", PlayerScreen.money).putInt("PlayerXP", PlayerScreen.xp);
+                editor.apply();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

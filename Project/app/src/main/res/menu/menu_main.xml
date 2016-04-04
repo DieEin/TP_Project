@@ -20,4 +20,9 @@
         android:orderInCategory="101"
         android:title="@string/main_menu_exit"
         app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/save"
+        android:orderInCategory="102"
+        android:title="Save"
+        app:showAsAction="ifRoom|withText"/>
 </menu>
