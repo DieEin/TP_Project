@@ -20,7 +20,9 @@ import com.example.tpproject.project.shopping.Shop;
 
 
 public class MainActivity extends AppCompatActivity {
-    // SQLiteDatabase database = null;
+    public static int level = 1;
+    public static int money = 0;
+    public static int xp = 0;
 
     public static final String SAVE = "ProjectGameSaveFile";
 
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         SharedPreferences load_game = getSharedPreferences(SAVE, MODE_PRIVATE);
-        PlayerScreen.money = load_game.getInt("PlayerMoney",0);
-        PlayerScreen.xp = load_game.getInt("PlayerXP",0);
+        money = load_game.getInt("PlayerMoney",0);
+        xp = load_game.getInt("PlayerXP",0);
 
         String[] mainMenuList = {"Map", "Shop"};
 
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_menu_player:
                 Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
+                goToPlayerScreen.putExtra("xp", xp);
+                goToPlayerScreen.putExtra("money", money);
+
                 startActivity(goToPlayerScreen);
                 break;
 
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.save:
                 SharedPreferences save_game = getSharedPreferences(SAVE, MODE_PRIVATE);
                 SharedPreferences.Editor editor = save_game.edit();
-                editor.putInt("PlayerMoney", PlayerScreen.money).putInt("PlayerXP", PlayerScreen.xp);
+                editor.putInt("PlayerMoney",money).putInt("PlayerXP",xp);
                 editor.apply();
                 break;
         }

@@ -23,6 +23,9 @@ public class Buy extends AppCompatActivity {
 
         setContentView(R.layout.buy_layout);
 
+        Bundle extras = getIntent().getExtras();
+        final int[] money = {extras.getInt("money")};
+
         String[] buyerList =
                     {"Item1 - costs 15 money",
                     "Item2 - costs 20 money",
@@ -36,22 +39,22 @@ public class Buy extends AppCompatActivity {
         buyerListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mainMenuOptionClicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
+            String mainMenuOptionClicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
 
-                Toast.makeText(Buy.this, mainMenuOptionClicked, Toast.LENGTH_SHORT).show();
+            Toast.makeText(Buy.this, mainMenuOptionClicked, Toast.LENGTH_SHORT).show();
 
-                String secondHalf = String.valueOf(parent.getItemAtPosition(position)).split("\\-")[1];
-                String itemToAdd = String.valueOf(parent.getItemAtPosition(position)).split("\\ ")[0];
-                String moneyCostString = secondHalf.replaceAll("\\D+", "");
-                int moneyCost = Integer.parseInt(moneyCostString);
+            String secondHalf = String.valueOf(parent.getItemAtPosition(position)).split("\\-")[1];
+            String itemToAdd = String.valueOf(parent.getItemAtPosition(position)).split("\\ ")[0];
+            String moneyCostString = secondHalf.replaceAll("\\D+", "");
+            int moneyCost = Integer.parseInt(moneyCostString);
 
-                if (PlayerScreen.money < moneyCost) {
-                    //Toast.makeText(Buy.this, "You do not have enough money to buy that item!", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Buy.this, moneyCostString, Toast.LENGTH_SHORT).show();
-                } else {
-                    PlayerScreen.itemsList.add(itemToAdd);
-                    PlayerScreen.money -= moneyCost;
-                }
+            if (money[0] < moneyCost) {
+                //Toast.makeText(Buy.this, "You do not have enough money to buy that item!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Buy.this, moneyCostString, Toast.LENGTH_SHORT).show();
+            } else {
+                PlayerScreen.itemsList.add(itemToAdd);
+                money[0] -= moneyCost;
+            }
             }
         });
     }

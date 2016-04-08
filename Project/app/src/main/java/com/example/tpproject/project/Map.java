@@ -38,6 +38,10 @@ public class Map extends AppCompatActivity {
     private String[] mission_text = {"Fight a Red Dragon", "Fight a Blue Dragon", "Fight a Green Dragon"};
     int[] mission_icons = {R.drawable.house, R.drawable.sample_mission_zero, R.drawable.house};
 
+    Bundle extras = getIntent().getExtras();
+    int xp = extras.getInt("xp");
+    int money = extras.getInt("money");
+    int level = extras.getInt("level");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +213,7 @@ public class Map extends AppCompatActivity {
                             public void onFinish() {
                                 alertDialog.cancel();
 
-                                PlayerScreen.money += moneyMade;
+                                money += moneyMade;
                                 Toast.makeText(Map.this, "You made " + moneyMade + " money!", Toast.LENGTH_SHORT).show();
                             }
                         }.start();

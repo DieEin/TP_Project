@@ -17,10 +17,13 @@ import java.util.logging.Level;
  * Created by Tomi on 5.3.2016 г..
  */
 public class PlayerScreen extends AppCompatActivity {
-    public static int level = 1;
-    public static int money = 0;
-    public static int xp = 0;
+
     public static List<String> itemsList = new ArrayList<String>();
+
+    Bundle extras = getIntent().getExtras();
+    public int xp = extras.getInt("xp");
+    public int money = extras.getInt("money");
+    public int level = extras.getInt("level");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

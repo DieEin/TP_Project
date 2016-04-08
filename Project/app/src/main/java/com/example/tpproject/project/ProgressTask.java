@@ -3,10 +3,15 @@ package com.example.tpproject.project;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.Toast;
+import android.content.Intent.*;
 
 import java.util.Random;
+
+
 
 /**
  * Created by Tomi on 11.3.2016 г..
@@ -40,24 +45,24 @@ public class ProgressTask extends AsyncTask<Void, Void, String> {
         int gainedMoney = 0;
         int gainedXP = 0;
 
-        if (PlayerScreen.level <= 2) {
+        if (MainActivity.level <= 2) {
             gainedMoney = randomizeInteger(10, 100);
             gainedXP = randomizeInteger(5, 30);
 
-            PlayerScreen.money += gainedMoney;
-            PlayerScreen.xp += gainedXP;
-        } else if (PlayerScreen.level <= 4) {
+            MainActivity.money += gainedMoney;
+            MainActivity.xp += gainedXP;
+        } else if (MainActivity.level <= 4) {
             gainedMoney = randomizeInteger(20, 150);
             gainedXP = randomizeInteger(5, 35);
 
-            PlayerScreen.money += gainedMoney;
-            PlayerScreen.xp += gainedXP;
-        } else if (PlayerScreen.level <= 9) {
+            MainActivity.money += gainedMoney;
+            MainActivity.xp += gainedXP;
+        } else if (MainActivity.level <= 9) {
             gainedMoney = randomizeInteger(50, 250);
             gainedXP = randomizeInteger(10, 50);
 
-            PlayerScreen.money += gainedMoney;
-            PlayerScreen.xp += gainedXP;
+            MainActivity.money += gainedMoney;
+            MainActivity.xp += gainedXP;
         }
 
         Toast.makeText(myContext, "You gained " + gainedXP + " XP and " + gainedMoney + " money!", Toast.LENGTH_SHORT).show();
@@ -65,33 +70,33 @@ public class ProgressTask extends AsyncTask<Void, Void, String> {
 
     public void chooseLevel() {
 
-        int tempLevel = PlayerScreen.level;
+        int tempLevel = MainActivity.level;
 
-        if (PlayerScreen.xp >= 30) {
+        if (MainActivity.xp >= 30) {
 
-            if (PlayerScreen.xp >= 100) {
+            if (MainActivity.xp >= 100) {
 
-                if (PlayerScreen.xp >= 250) {
+                if (MainActivity.xp >= 250) {
 
-                    if (PlayerScreen.xp >= 500) {
+                    if (MainActivity.xp >= 500) {
 
-                        if (PlayerScreen.xp >= 1000) {
-                            PlayerScreen.level = 6;
+                        if (MainActivity.xp >= 1000) {
+                            MainActivity.level = 6;
                         } else {
-                            PlayerScreen.level = 5;
+                            MainActivity.level = 5;
                         }
                     } else {
-                        PlayerScreen.level = 4;
+                        MainActivity.level = 4;
                     }
                 } else {
-                    PlayerScreen.level = 3;
+                    MainActivity.level = 3;
                 }
             } else {
-                PlayerScreen.level = 2;
+                MainActivity.level = 2;
             }
         }
 
-        if (tempLevel != PlayerScreen.level) {
+        if (tempLevel != MainActivity.level) {
             Toast.makeText(myContext, "You have leveled up!", Toast.LENGTH_SHORT).show();
         }
     }
@@ -102,16 +107,16 @@ public class ProgressTask extends AsyncTask<Void, Void, String> {
 
         mySleepTime = 200;
 
-        if (PlayerScreen.level <= 5) {
-            myJump = randomizeInteger(PlayerScreen.level, PlayerScreen.level*10);
-        } else if (PlayerScreen.level <= 10) {
-            myJump = randomizeInteger(1, PlayerScreen.level - 5);
-        } else if (PlayerScreen.level <= 15) {
-            myJump = randomizeInteger(1, PlayerScreen.level - 10);
-            mySleepTime += PlayerScreen.level*200;
+        if (MainActivity.level <= 5) {
+            myJump = randomizeInteger(MainActivity.level, MainActivity.level*10);
+        } else if (MainActivity.level <= 10) {
+            myJump = randomizeInteger(1, MainActivity.level - 5);
+        } else if (MainActivity.level <= 15) {
+            myJump = randomizeInteger(1, MainActivity.level - 10);
+            mySleepTime += MainActivity.level*200;
         } else {
-            myJump = randomizeInteger(1, PlayerScreen.level - 15);
-            mySleepTime += PlayerScreen.level*50;
+            myJump = randomizeInteger(1, MainActivity.level - 15);
+            mySleepTime += MainActivity.level*50;
         }
 
         progress.setMessage(myMessage);
