@@ -10,6 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.tpproject.project.Achievments;
 import com.example.tpproject.project.PlayerScreen;
 import com.example.tpproject.project.R;
 
@@ -17,6 +18,9 @@ import com.example.tpproject.project.R;
  * Created by Tomi on 18.3.2016 г..
  */
 public class Buy extends AppCompatActivity {
+
+    boolean firstItemBought = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +49,20 @@ public class Buy extends AppCompatActivity {
                 String moneyCostString = secondHalf.replaceAll("\\D+", "");
                 int moneyCost = Integer.parseInt(moneyCostString);
 
+                String firstItemBoughtAchievment = "Started shopping!";
+
                 if (PlayerScreen.money < moneyCost) {
                     //Toast.makeText(Buy.this, "You do not have enough money to buy that item!", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Buy.this, moneyCostString, Toast.LENGTH_SHORT).show();
                 } else {
                     PlayerScreen.itemsList.add(itemToAdd);
                     PlayerScreen.money -= moneyCost;
+
+                    if (firstItemBought) {
+                        Achievments.achievmentsList.add(firstItemBoughtAchievment);
+
+                        firstItemBought = false;
+                    }
                 }
             }
         });

@@ -143,26 +143,30 @@ public class Map extends AppCompatActivity {
     }
 
     public void missionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
+        if (PlayerScreen.energy >= 10) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
 
-        int messageID = randomizeInteger(0, mission_text.length - 1);
+            int messageID = randomizeInteger(0, mission_text.length - 1);
 
-        builder.setTitle(R.string.mission_title)
-            .setMessage(mission_text[messageID])
-            .setIcon(mission_icons[messageID])
-            .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ProgressTask task = new ProgressTask(Map.this, "Shit is happening");
-                    task.execute();
-                }
-            })
-            .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // just cancels
-                }
-            }).create().show();
+            builder.setTitle(R.string.mission_title)
+                    .setMessage(mission_text[messageID])
+                    .setIcon(mission_icons[messageID])
+                    .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ProgressTask task = new ProgressTask(Map.this, "Shit is happening");
+                            task.execute();
+
+                            PlayerScreen.energy -= 10;
+                        }
+                    })
+                    .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // just cancels
+                        }
+                    }).create().show();
+        }
     }
 
     public void HandleMission(View view) {
@@ -185,44 +189,45 @@ public class Map extends AppCompatActivity {
 
     public void jobDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
+        if (PlayerScreen.energy >= 35) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Map.this);
 
-        final int overallTime = randomizeInteger(1000, 30000);
-        final int moneyMade = randomizeInteger(5, 150);
+            final int overallTime = randomizeInteger(1000, 30000);
+            final int moneyMade = randomizeInteger(5, 150);
 
-        builder.setTitle("Job")
-                .setMessage("You can make " + moneyMade + " money for " + overallTime/1000 + " seconds!")
-                .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final AlertDialog alertDialog = new AlertDialog.Builder(Map.this).create();
+            builder.setTitle("Job")
+                    .setMessage("You can make " + moneyMade + " money for " + overallTime/1000 + " seconds!")
+                    .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            final AlertDialog alertDialog = new AlertDialog.Builder(Map.this).create();
 
-                        alertDialog.setTitle("Job");
-                        alertDialog.setMessage("");
-                        alertDialog.show();
+                            alertDialog.setTitle("Job");
+                            alertDialog.setMessage("");
+                            alertDialog.show();
 
-                        new CountDownTimer(overallTime, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                alertDialog.setMessage("00:" + (millisUntilFinished/1000));
-                            }
+                            new CountDownTimer(overallTime, 1000) {
+                                public void onTick(long millisUntilFinished) {
+                                    alertDialog.setMessage("00:" + (millisUntilFinished/1000));
+                                }
 
-                            public void onFinish() {
-                                alertDialog.cancel();
+                                public void onFinish() {
+                                    alertDialog.cancel();
 
-                                PlayerScreen.money += moneyMade;
-                                Toast.makeText(Map.this, "You made " + moneyMade + " money!", Toast.LENGTH_SHORT).show();
-                            }
-                        }.start();
-                    }
-                })
-                .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // just cancels
-                    }
-                }).create().show();
-
-
+                                    PlayerScreen.energy -= 35;
+                                    PlayerScreen.money += moneyMade;
+                                    Toast.makeText(Map.this, "You made " + moneyMade + " money!", Toast.LENGTH_SHORT).show();
+                                }
+                            }.start();
+                        }
+                    })
+                    .setNegativeButton(R.string.decline_mission, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // just cancels
+                        }
+                    }).create().show();
+        }
 
     }
 
