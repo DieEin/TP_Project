@@ -20,6 +20,7 @@ public class PlayerScreen extends AppCompatActivity {
     public static int level = 1;
     public static int money = 0;
     public static int xp = 0;
+    public static int energy = 50;
     public static List<String> itemsList = new ArrayList<String>();
 
     @Override
@@ -36,6 +37,9 @@ public class PlayerScreen extends AppCompatActivity {
 
         TextView LevelView = (TextView) findViewById(R.id.textViewLevel);
         LevelView.setText("You are level " + level);
+
+        ProgressBar energyProgressBar = (ProgressBar) findViewById(R.id.energyBar);
+        energyProgressBar.setProgress(energy);
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemsList);
 

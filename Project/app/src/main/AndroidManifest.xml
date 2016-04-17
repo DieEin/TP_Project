@@ -49,6 +49,9 @@
         <activity android:name=".shopping.Sell"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".Achievments"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

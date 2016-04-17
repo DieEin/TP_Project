@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         PlayerScreen.money = load_game.getInt("PlayerMoney",0);
         PlayerScreen.xp = load_game.getInt("PlayerXP",0);
 
-        String[] mainMenuList = {"Map", "Shop"};
+        String[] mainMenuList = {"Player", "Map", "Shop", "Achievments"};
 
         ListAdapter mainMenuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mainMenuList);
 
@@ -45,17 +45,25 @@ public class MainActivity extends AppCompatActivity {
         mainMenuListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mainMenuOptionClicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
+                String selected = String.valueOf(parent.getItemAtPosition(position));
+                String mainMenuOptionClicked = "You selected " + selected;
 
                 Toast.makeText(MainActivity.this, mainMenuOptionClicked, Toast.LENGTH_SHORT).show();
 
-                if (String.valueOf(parent.getItemAtPosition(position)) == "Map") {
+                if (selected == "Player") {
+                    Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
+                    startActivity(goToPlayerScreen);
+                } else if (selected == "Map") {
                     Intent goToMapScreen = new Intent(view.getContext(), Map.class);
                     startActivity(goToMapScreen);
-                } else if (String.valueOf(parent.getItemAtPosition(position)) == "Shop") {
+                } else if (selected == "Shop") {
                     Intent goToShopScreen = new Intent(view.getContext(), Shop.class);
 
                     startActivity(goToShopScreen);
+                } else if (selected == "Achievments") {
+                    Intent goToAchievmentsScreen = new Intent(view.getContext(), Achievments.class);
+
+                    startActivity(goToAchievmentsScreen);
                 }
             }
         });
@@ -89,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_settings:
                 return true;
-
-            case R.id.main_menu_player:
-                Intent goToPlayerScreen = new Intent(getApplicationContext(), PlayerScreen.class);
-                startActivity(goToPlayerScreen);
-                break;
 
             case R.id.exit_app:
                 finish();
