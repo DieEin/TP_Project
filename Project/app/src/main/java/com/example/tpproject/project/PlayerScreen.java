@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.view.View;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -63,5 +66,34 @@ public class PlayerScreen extends AppCompatActivity {
 
         TextView speedTextView = (TextView) findViewById(R.id.speedSkill);
         speedTextView.setText("Speed: " + speed);
+    }
+    public void buttonIntOnClick(View Intelligence){
+        Button button =(Button) Intelligence;
+        if(money >= 10){
+            intelligence++;
+            money -= 10;
+        }else{
+            Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void buttonPowerOnClick(View Power){
+        Button button =(Button) Power;
+        if(money >= 10){
+            power++;
+            money -= 10;
+        }else{
+            Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void buttonSpeedOnClick(View Speed){
+        Button button =(Button) Speed;
+        if(money >= 10){
+            speed++;
+            money -= 10;
+        }else{
+            Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
