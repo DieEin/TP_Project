@@ -68,30 +68,45 @@ public class PlayerScreen extends AppCompatActivity {
         speedTextView.setText("Speed: " + speed);
     }
     public void buttonIntOnClick(View Intelligence){
-        Button button =(Button) Intelligence;
-        if(money >= 10){
+        int IntCostCounter = intelligence + intelligence/2;
+        if(money >= IntCostCounter){
             intelligence++;
-            money -= 10;
+            money -= IntCostCounter;
+            TextView intelligenceTextView = (TextView) findViewById(R.id.intelligenceSkill);
+            intelligenceTextView.setText("Intelligence: " + String.valueOf(intelligence));
+            TextView MoneyView = (TextView) findViewById(R.id.textViewMoney);
+            MoneyView.setText("Money: " + money);
+            Toast.makeText(PlayerScreen.this, "You spend " + IntCostCounter + " money!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void buttonPowerOnClick(View Power){
-        Button button =(Button) Power;
-        if(money >= 10){
+        int PowerCostCounter = power + power/2;
+        if(money >= PowerCostCounter){
             power++;
-            money -= 10;
+            money -= PowerCostCounter;
+            TextView powerTextView = (TextView) findViewById(R.id.powerSkill);
+            powerTextView.setText("Power: " + String.valueOf(power));
+            TextView MoneyView = (TextView) findViewById(R.id.textViewMoney);
+            MoneyView.setText("Money: " + money);
+            Toast.makeText(PlayerScreen.this, "You spend " + PowerCostCounter + " money!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void buttonSpeedOnClick(View Speed){
-        Button button =(Button) Speed;
-        if(money >= 10){
+        int SpeedCostCounter = speed + speed/2;
+        if(money >= SpeedCostCounter){
             speed++;
-            money -= 10;
+            money -= SpeedCostCounter;
+            TextView speedTextView = (TextView) findViewById(R.id.speedSkill);
+            speedTextView.setText("Speed: " + String.valueOf(speed));
+            TextView MoneyView = (TextView) findViewById(R.id.textViewMoney);
+            MoneyView.setText("Money: " + money);
+            Toast.makeText(PlayerScreen.this, "You spend " + SpeedCostCounter + " money!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(PlayerScreen.this, "You don't have enought money!", Toast.LENGTH_SHORT).show();
         }

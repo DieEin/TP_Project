@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences load_game = getSharedPreferences(SAVE, MODE_PRIVATE);
         PlayerScreen.money = load_game.getInt("PlayerMoney",0);
         PlayerScreen.xp = load_game.getInt("PlayerXP",0);
+        PlayerScreen.intelligence = load_game.getInt("PlayerInt",10);
+        PlayerScreen.power = load_game.getInt("PlayerPower",10);
+        PlayerScreen.speed = load_game.getInt("PlayerSpeed",10);
+        PlayerScreen.level = load_game.getInt("PlayerLevel",1);
 
         String[] mainMenuList = {"Player", "Map", "Shop", "Achievments"};
 
@@ -106,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.save:
                 SharedPreferences save_game = getSharedPreferences(SAVE, MODE_PRIVATE);
                 SharedPreferences.Editor editor = save_game.edit();
-                editor.putInt("PlayerMoney", PlayerScreen.money).putInt("PlayerXP", PlayerScreen.xp);
+                editor.putInt("PlayerMoney", PlayerScreen.money)
+                      .putInt("PlayerXP", PlayerScreen.xp)
+                      .putInt("PlayerInt", PlayerScreen.intelligence)
+                      .putInt("PlayerPower", PlayerScreen.power)
+                      .putInt("PlayerSpeed", PlayerScreen.speed)
+                      .putInt("PlayerLevel", PlayerScreen.level);
                 editor.apply();
                 break;
         }
