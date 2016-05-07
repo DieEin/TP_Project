@@ -21,6 +21,8 @@ public class House extends AppCompatActivity {
 
     public void regainEnergy(View view) {
         PlayerScreen.energy += (100 - PlayerScreen.energy);
+        TextView energyLevel = (TextView) findViewById(R.id.energyLevel);
+        energyLevel.setText("Your energy is " + PlayerScreen.energy + "/100");
     }
 
     public void train(View view) {

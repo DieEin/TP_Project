@@ -227,6 +227,8 @@ public class Map extends AppCompatActivity {
                             // just cancels
                         }
                     }).create().show();
+        } else {
+            Toast.makeText(Map.this, "You do not have enough energy!", Toast.LENGTH_SHORT).show();
         }
 
     }
