@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.example.tpproject.project.R;
 import com.example.tpproject.project.app.AppConfig;
 import com.example.tpproject.project.app.AppController;
 import com.example.tpproject.project.helper.SQLiteHandler;
+import com.example.tpproject.project.helper.SQLiteHandler2;
 import com.example.tpproject.project.helper.SessionManager;
 
 public class LoginActivity extends Activity {
@@ -40,6 +42,7 @@ public class LoginActivity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+    //private SQLiteHandler2 db2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class LoginActivity extends Activity {
 
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
+        //db2 = new SQLiteHandler2(getApplicationContext());
 
         // Session manager
         session = new SessionManager(getApplicationContext());
@@ -142,6 +146,16 @@ public class LoginActivity extends Activity {
 
                         // Inserting row in users table
                         db.addUser(name, email, uid, created_at);
+
+
+                        JSONObject player_stats = jObj.getJSONObject("player_stats");
+                        String money = player_stats.getString("money");
+                        String xp = player_stats.getString("xp");
+                        String level = player_stats.getString("level");
+                        //int money = Integer.parseInt(player_stats.getString("money"));
+                        //int xp = Integer.parseInt(player_stats.getString("xp"));
+                        //int level = Integer.parseInt(player_stats.getString("level"));
+                        db.addStats(name, money, xp, level);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,

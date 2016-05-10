@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.content.SharedPreferences;
 
 import com.example.tpproject.project.activity.LoginActivity;
+import com.example.tpproject.project.helper.SQLiteHandler2;
 import com.example.tpproject.project.shopping.Shop;
 
 import com.example.tpproject.project.helper.SQLiteHandler;
@@ -100,8 +101,10 @@ public class MainActivity extends AppCompatActivity {
     // SQLiteDatabase database = null;
 
     private Button btnLogout;
+    private Button exitButton;
 
     private SQLiteHandler db;
+    //private SQLiteHandler2 db2;
     private SessionManager session;
 
     public static final String SAVE = "ProjectGameSaveFile";
@@ -113,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        SharedPreferences load_game = getSharedPreferences(SAVE, MODE_PRIVATE);
+        /*SharedPreferences load_game = getSharedPreferences(SAVE, MODE_PRIVATE);
         PlayerScreen.money = load_game.getInt("PlayerMoney",0);
         PlayerScreen.xp = load_game.getInt("PlayerXP",0);
         PlayerScreen.intelligence = load_game.getInt("PlayerInt",10);
         PlayerScreen.power = load_game.getInt("PlayerPower",10);
         PlayerScreen.speed = load_game.getInt("PlayerSpeed",10);
-        PlayerScreen.level = load_game.getInt("PlayerLevel",1);
+        PlayerScreen.level = load_game.getInt("PlayerLevel",1);*/
 
         String[] mainMenuList = {"Player", "Map", "Shop", "Achievments"};
 
@@ -156,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
+        //db2 = new SQLiteHandler2(getApplicationContext());
 
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -163,6 +167,21 @@ public class MainActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
+
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+
+        PlayerScreen.playerName = user.get("name");
+        String a = user.get("email");
+        String b = user.get("uid");
+
+
+        HashMap<String, String> player_stats = db.getPlayerStats();
+        PlayerScreen.playerName = player_stats.get("name");
+        String money = player_stats.get("money");
+        String xp = player_stats.get("xp");
+        String level = player_stats.get("level");
+        //PlayerScreen.money = Integer.parseInt(money);
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +193,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        exitButton = (Button) findViewById(R.id.exit_button);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         session.setLogin(false);
 
         db.deleteUsers();
+        //db2.deletePlayerStats();
 
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

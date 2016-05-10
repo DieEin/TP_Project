@@ -29,6 +29,7 @@ import com.example.tpproject.project.R;
 import com.example.tpproject.project.app.AppConfig;
 import com.example.tpproject.project.app.AppController;
 import com.example.tpproject.project.helper.SQLiteHandler;
+import com.example.tpproject.project.helper.SQLiteHandler2;
 import com.example.tpproject.project.helper.SessionManager;
 
 public class RegisterActivity extends Activity {
@@ -41,6 +42,7 @@ public class RegisterActivity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+    //private SQLiteHandler2 db2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class RegisterActivity extends Activity {
 
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
+        //db2 = new SQLiteHandler2(getApplicationContext());
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -138,6 +141,15 @@ public class RegisterActivity extends Activity {
 
                         // Inserting row in users table
                         db.addUser(name, email, uid, created_at);
+
+                        JSONObject player_stats = jObj.getJSONObject("player_stats");
+                        /*int money = Integer.parseInt(user.getString("money"));
+                        int xp = Integer.parseInt(user.getString("xp"));
+                        int level = Integer.parseInt(user.getString("level"));*/
+                        String money = player_stats.getString("money");
+                        String xp = player_stats.getString("xp");
+                        String level = player_stats.getString("level");
+                        db.addStats(name, money, xp, level);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
