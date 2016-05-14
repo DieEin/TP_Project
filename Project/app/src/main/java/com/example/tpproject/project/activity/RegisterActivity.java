@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -105,6 +106,46 @@ public class RegisterActivity extends Activity {
 
     }
 
+    private void boolMakeLoginUser(final String name) {
+        String tag_string_req = "req_makeLoginUser";
+
+        //pDialog.setMessage("Storing data ...");
+        //showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_STOREISLOGGED, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                //hideDialog();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected java.util.Map<String, String> getParams() {
+                // Posting params to register url
+                java.util.Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     /**
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
@@ -154,6 +195,7 @@ public class RegisterActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
+                        boolMakeLoginUser(name);
                         Intent intent = new Intent(
                                 RegisterActivity.this,
                                 LoginActivity.class);

@@ -148,6 +148,14 @@ class DB_Functions {
         $stmt->close();
 	}
 	
+	public function storeIsLoggedInfo($name) {
+		$stmt = $this->conn->prepare("INSERT INTO user_logged_in(name, logged_in) VALUES(?, 0)");
+        $s = "s";
+		$stmt->bind_param($s, $name);
+        $result = $stmt->execute();
+        $stmt->close();
+	}
+	
 	/* NEW THING */
  
     /**

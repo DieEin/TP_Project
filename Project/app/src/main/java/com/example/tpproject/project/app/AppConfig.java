@@ -18,4 +18,6 @@ public class AppConfig {
     public static String URL_LOGINBOOL = "http://192.168.0.101/android_login_api/login_user.php";
 
     public static String URL_LOGOUTBOOL = "http://192.168.0.101/android_login_api/logout_user.php";
+
+    public static String URL_STOREISLOGGED = "http://192.168.0.101/android_login_api/store_isLoggedInf.php";
 }
