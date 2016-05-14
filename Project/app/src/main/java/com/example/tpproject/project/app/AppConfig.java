@@ -9,4 +9,13 @@ public class AppConfig {
 
     // Server user register url
     public static String URL_REGISTER = "http://192.168.0.101/android_login_api/register.php";
+
+    // Server user stats update url
+    public static String URL_UPDATE = "http://192.168.0.101/android_login_api/storeData.php";
+
+    public static String URL_GETUSERS = "http://192.168.0.101/android_login_api/get_logged_users.php";
+
+    public static String URL_LOGINBOOL = "http://192.168.0.101/android_login_api/login_user.php";
+
+    public static String URL_LOGOUTBOOL = "http://192.168.0.101/android_login_api/logout_user.php";
 }

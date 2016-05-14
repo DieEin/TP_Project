@@ -1,11 +1,13 @@
 package com.example.tpproject.project;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +18,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.tpproject.project.activity.LoginActivity;
+import com.example.tpproject.project.app.AppConfig;
+import com.example.tpproject.project.app.AppController;
 import com.example.tpproject.project.helper.SQLiteHandler2;
 import com.example.tpproject.project.shopping.Shop;
 
@@ -31,6 +39,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 /*
 public class MainActivity extends Activity {
 
@@ -102,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnLogout;
     private Button exitButton;
+    private Button settingsButton;
+
+    private ProgressDialog pDialog;
 
     private SQLiteHandler db;
     //private SQLiteHandler2 db2;
@@ -124,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         PlayerScreen.speed = load_game.getInt("PlayerSpeed",10);
         PlayerScreen.level = load_game.getInt("PlayerLevel",1);*/
 
-        String[] mainMenuList = {"Player", "Map", "Shop", "Achievments"};
+        String[] mainMenuList = {"Player", "Map", "Shop", "Achievments", "Rankings"};
 
         ListAdapter mainMenuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mainMenuList);
 
@@ -153,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent goToAchievmentsScreen = new Intent(view.getContext(), Achievments.class);
 
                     startActivity(goToAchievmentsScreen);
+                } else if (selected == "Rankings") {
+                    Intent goToRankingsScreen = new Intent(view.getContext(), Rankings.class);
+
+                    startActivity(goToRankingsScreen);
                 }
             }
         });
@@ -181,7 +199,10 @@ public class MainActivity extends AppCompatActivity {
         String money = player_stats.get("money");
         String xp = player_stats.get("xp");
         String level = player_stats.get("level");
-        //PlayerScreen.money = Integer.parseInt(money);
+        PlayerScreen.money = Integer.parseInt(money);
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +219,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                boolLogoutUser(PlayerScreen.playerName);
+                storePlayerData(PlayerScreen.playerName, String.valueOf(PlayerScreen.money),
+                        String.valueOf(PlayerScreen.xp), String.valueOf(PlayerScreen.level));
                 finish();
+            }
+        });
+
+        settingsButton = (Button) findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //storePlayerData(PlayerScreen.playerName, "10", "0", "1");
             }
         });
 /*
@@ -213,15 +245,114 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logoutUser() {
+        boolLogoutUser(PlayerScreen.playerName);
+        storePlayerData(PlayerScreen.playerName, String.valueOf(PlayerScreen.money),
+                        String.valueOf(PlayerScreen.xp), String.valueOf(PlayerScreen.level));
         session.setLogin(false);
 
         db.deleteUsers();
-        //db2.deletePlayerStats();
+        db.deletePlayerStats();
 
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+
+    private void boolLogoutUser(final String name) {
+        String tag_string_req = "req_StoreUserLoggedOut";
+
+        //pDialog.setMessage("Storing data ...");
+        //showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_LOGOUTBOOL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                //hideDialog();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected java.util.Map<String, String> getParams() {
+                // Posting params to register url
+                java.util.Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void storePlayerData(final String name, final String money, final String xp, final String level) { {
+        // Tag used to cancel the request
+        String tag_string_req = "req_storePlayerData";
+
+        pDialog.setMessage("Storing data ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_UPDATE, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+
+                    hideDialog();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //Log.e(TAG, "Registration Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_LONG).show();
+                    hideDialog();
+                }
+            }) {
+
+                @Override
+                protected java.util.Map<String, String> getParams() {
+                    // Posting params to register url
+                    java.util.Map<String, String> params = new HashMap<String, String>();
+                    params.put("name", name);
+                    params.put("money", money);
+                    params.put("xp", xp);
+                    params.put("level", level);
+
+                    return params;
+                }
+
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
     }
 /*
     @Override

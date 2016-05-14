@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.tpproject.project.MainActivity;
+import com.example.tpproject.project.PlayerScreen;
 import com.example.tpproject.project.R;
 import com.example.tpproject.project.app.AppConfig;
 import com.example.tpproject.project.app.AppController;
@@ -107,6 +109,46 @@ public class LoginActivity extends Activity {
 
     }
 
+    private void boolLoginUser(final String name) {
+        String tag_string_req = "req_storeUserLoggedIn";
+
+        //pDialog.setMessage("Storing data ...");
+        //showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_LOGINBOOL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                //hideDialog();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected java.util.Map<String, String> getParams() {
+                // Posting params to register url
+                java.util.Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     /**
      * function to verify login details in mysql db
      * */
@@ -158,6 +200,7 @@ public class LoginActivity extends Activity {
                         db.addStats(name, money, xp, level);
 
                         // Launch main activity
+                        boolLoginUser(name);
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);
                         startActivity(intent);

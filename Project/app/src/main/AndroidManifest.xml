@@ -109,6 +109,9 @@
         <activity android:name=".Achievments"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".Rankings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
