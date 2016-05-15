@@ -31,7 +31,9 @@ import com.example.tpproject.project.shopping.Shop;
 import com.example.tpproject.project.helper.SQLiteHandler;
 import com.example.tpproject.project.helper.SessionManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -245,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logoutUser() {
+
         boolLogoutUser(PlayerScreen.playerName);
         storePlayerData(PlayerScreen.playerName, String.valueOf(PlayerScreen.money),
                         String.valueOf(PlayerScreen.xp), String.valueOf(PlayerScreen.level));

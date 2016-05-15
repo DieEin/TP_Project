@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,9 +32,14 @@ import java.util.List;
  */
 public class Rankings extends AppCompatActivity {
 
-    public static List<String> rankingsList = new ArrayList<String>();
+    //private String[] all_IsLogged = new String[4];//{"1", "0", "0", "0"};
+    public static int logged = 0;
+
+    public List<Integer> imageId;
+    public List<String> rankingsList;
     private ProgressDialog pDialog;
     TextView text;
+    ImageView theImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +47,18 @@ public class Rankings extends AppCompatActivity {
 
         setContentView(R.layout.rankings_layout);
 
+        rankingsList = new ArrayList<String>();
+        imageId = new ArrayList<Integer>();
+
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        text = (TextView) findViewById(R.id.testTextView);
-
         storePlayerData();
-        /*
-        ArrayAdapter<String> rankingsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rankingsList);
+
+        ArrayAdapter<String> rankingsAdapter = new MyAdapter(this, rankingsList, imageId);
 
         ListView rankingsListView = (ListView) findViewById(R.id.rankings_listView);
-        rankingsListView.setAdapter(rankingsAdapter);*/
+        rankingsListView.setAdapter(rankingsAdapter);
     }
 
     private void showDialog() {
@@ -100,12 +109,17 @@ public class Rankings extends AppCompatActivity {
                         is_logged = is_logged.replaceAll("\"", "");
                         String[] all_IsLogged = is_logged.split(",");
 
-                        String result = new String();
                         for(int i = 0; i < all_IsLogged.length; i++) {
-                            result += allNames[i] + " " + all_IsLogged[i];
-                            result += '\n';
+                            if (!rankingsList.contains(allNames[i])) {
+                                rankingsList.add(allNames[i]);
+                            }
+
+                            if (all_IsLogged[i].equals("1")) {
+                                imageId.add(R.drawable.logged_in);
+                            } else {
+                                imageId.add(R.drawable.logged_out);
+                            }
                         }
-                        text.setText(result);
 
                     } else {
                         // Error in login. Get the error message
@@ -133,6 +147,10 @@ public class Rankings extends AppCompatActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
     }
+    }
+
+    public void ReloadRankings(View view) {
     }
 }

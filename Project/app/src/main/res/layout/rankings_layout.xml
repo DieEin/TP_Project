@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/testTextView"/>
+        android:text="EXIT"
+        android:id="@+id/exit_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:background="@color/input_register_bg"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reload_button"
+        android:text="Reload"
+        android:onClick="ReloadRankings"
+        android:background="@color/input_register_bg"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_toLeftOf="@+id/exit_button"
+        android:layout_toRightOf="@+id/btnLogout"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogout"
+        android:background="@color/input_register_bg"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:layout_alignParentLeft="true"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rankings_listView"></ListView>
+        android:id="@+id/rankings_listView"
+        android:layout_below="@+id/reload_button"></ListView>
 
-</LinearLayout>
+</RelativeLayout>
