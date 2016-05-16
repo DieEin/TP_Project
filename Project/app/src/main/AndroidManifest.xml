@@ -103,6 +103,9 @@
         <activity android:name=".shopping.Buy"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".Fight"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".shopping.Sell"
             android:theme="@style/AppTheme.NoActionBar"/>
 

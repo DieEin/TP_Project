@@ -80,20 +80,28 @@ public class Map extends AppCompatActivity {
 
         if (id == R.id.first_zone) {
             Intent goToFirstZone = new Intent(this, FirstZone.class);
-
             startActivity(goToFirstZone);
         } else if (id == R.id.second_zone) {
-            Intent goToSecondZone = new Intent(this, SecondZone.class);
-
-            startActivity(goToSecondZone);
+            if(PlayerScreen.level >= 2) {
+                Intent goToSecondZone = new Intent(this, SecondZone.class);
+                startActivity(goToSecondZone);
+            }else{
+                Toast.makeText(this, "You must be atleast 2 level to enter this zone!", Toast.LENGTH_SHORT).show();
+            }
         } else if (id == R.id.third_zone) {
-            Intent goToThirdZone = new Intent(this, ThirdZone.class);
-
-            startActivity(goToThirdZone);
+            if (PlayerScreen.level >= 4){
+                Intent goToThirdZone = new Intent(this, ThirdZone.class);
+                startActivity(goToThirdZone);
+            }else{
+                Toast.makeText(this, "You must be atleast 4 level to enter this zone!", Toast.LENGTH_SHORT).show();
+            }
         } else if (id == R.id.fourth_zone) {
-            Intent goToFourthZone = new Intent(this, FourthZone.class);
-
-            startActivity(goToFourthZone);
+            if(PlayerScreen.level>=6){
+                Intent goToFourthZone = new Intent(this, FourthZone.class);
+                startActivity(goToFourthZone);
+            }else{
+                Toast.makeText(this, "You must be atleast 6 level to enter this zone!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -154,8 +162,8 @@ public class Map extends AppCompatActivity {
                     .setPositiveButton(R.string.accept_mission, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ProgressTask task = new ProgressTask(Map.this, "Shit is happening");
-                            task.execute();
+                            Intent goToFight = new Intent(getApplicationContext(), Fight.class);
+                            startActivity(goToFight);
 
                             PlayerScreen.energy -= 10;
                         }
@@ -173,7 +181,6 @@ public class Map extends AppCompatActivity {
         int id = view.getId();
 
         if (id == R.id.first_zone_mission_zero) {
-            // ProgressDialogForMission("Shit is happening", 100, sleepTime, timeJump);
             missionDialog();
         } else if (id == R.id.second_zone_mission_zero) {
             // ProgressDialogForMission("...", 100, sleepTime, timeJump);

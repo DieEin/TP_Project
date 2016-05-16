@@ -33,45 +33,62 @@ tools:context="com.example.tpproject.project.Map">
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.tpproject.project.Map"
-        android:background="@drawable/sample_map">
+        android:background="@drawable/cartooncity"
+        android:weightSum="1">
 
-
-        <ImageView
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/first_zone"
-            android:src="@drawable/sample_mission_zero"
             android:alpha=".75"
+            android:text="Zone 1"
             android:onClick="HandleZone"
             android:paddingTop="50dp"
-            android:layout_gravity="center_horizontal" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/second_zone"
-            android:src="@drawable/sample_mission_zero"
-            android:paddingTop="50dp"
+            android:background="@null"
             android:layout_gravity="center_horizontal"
-            android:alpha=".75"
-            android:onClick="HandleZone"/>
-        <ImageView
-            android:layout_width="wrap_content"
+            android:layout_weight="0.10" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/third_zone"
-            android:src="@drawable/sample_mission_zero"
-            android:paddingTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:alpha=".75"
-            android:onClick="HandleZone"/>
-        <ImageView
-            android:layout_width="wrap_content"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="186dp"
+                android:id="@+id/second_zone"
+                android:text="Zone 2"
+                android:paddingTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:alpha=".75"
+                android:background="@null"
+                android:onClick="HandleZone"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="180dp"
+                android:layout_height="191dp"
+                android:id="@+id/third_zone"
+                android:text="Zone 3"
+                android:paddingTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:alpha=".75"
+                android:background="@null"
+                android:onClick="HandleZone"/>
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fourth_zone"
-            android:src="@drawable/sample_mission_zero"
+            android:text="Zone 4"
             android:paddingTop="50dp"
-            android:layout_gravity="center_horizontal"
             android:alpha=".75"
-            android:onClick="HandleZone"/>
+            android:background="@null"
+            android:onClick="HandleZone"
+            android:layout_weight="0.63" />
 
     </LinearLayout>
 
