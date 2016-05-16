@@ -27,6 +27,7 @@ public class PlayerScreen extends AppCompatActivity {
     public static int money = 0;
     public static int xp = 0;
     public static int energy = 100;
+    public static int health = 50;
     public static int intelligence = 10;
     public static int power = 10;
     public static int speed = 10;
@@ -52,6 +53,9 @@ public class PlayerScreen extends AppCompatActivity {
 
         ProgressBar energyProgressBar = (ProgressBar) findViewById(R.id.energyBar);
         energyProgressBar.setProgress(energy);
+
+        ProgressBar healthBar = (ProgressBar) findViewById(R.id.healthBar);
+        healthBar.setProgress(health);;
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemsList);
 
